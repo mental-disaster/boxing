@@ -15,6 +15,9 @@ void main() {
   // 전체 화면 모드 설정
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  final game = Boxing();
-  runApp(GameWidget(game: game));
+  runApp(
+      const GameWidget.controlled(
+          gameFactory: Boxing.new
+      ),
+  );
 }

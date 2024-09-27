@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:boxing/src/components/player.dart';
 import 'package:boxing/src/config.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+
+import 'components/components.dart';
 
 class Boxing extends FlameGame
     with PanDetector {
@@ -23,8 +24,14 @@ class Boxing extends FlameGame
   FutureOr<void> onLoad() async {
     super.onLoad();
 
-    camera.viewfinder.anchor = Anchor.bottomLeft;
+    camera.viewfinder.anchor = Anchor.topLeft;
 
-    world.add(Player(position: Vector2(0, 0), size: Vector2(300, 500)));
+    world.add(Ring());
+
+    world.add(HudArea());
+
+    world.add(Player());
+
+    debugMode = true;
   }
 }
