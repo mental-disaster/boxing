@@ -27,7 +27,6 @@ class Ring extends RectangleComponent
 
   @override
   void onLongTapDown(TapDownEvent event) {
-    print('Straight');
     _isLongTap = true;
   }
   
@@ -35,8 +34,9 @@ class Ring extends RectangleComponent
   void onTapUp(TapUpEvent event) {
     if (!_isLongTap) {
       print('Jap');
+    } else {
+      print('Straight');
     }
-
     _isLongTap = false;
   }
 
@@ -45,6 +45,7 @@ class Ring extends RectangleComponent
     super.onDragStart(event);
     _dragCanceled = false;
     _dragStartPosition = event.localPosition;
+    print(_dragStartPosition);
   }
 
   @override
@@ -52,23 +53,17 @@ class Ring extends RectangleComponent
     if (_dragCanceled) return;
 
     if (event.localEndPosition.x - _dragStartPosition!.x > xDragThreshold) {
-      _dragCanceled = true;
       print("drag right");
+      _dragCanceled = true;
     } else if (_dragStartPosition!.x - event.localEndPosition.x > xDragThreshold) {
-      _dragCanceled = true;
       print("drag left");
+      _dragCanceled = true;
     } else if (event.localEndPosition.y - _dragStartPosition!.y > xDragThreshold) {
-      _dragCanceled = true;
       print("drag down");
-    } else if (_dragStartPosition!.y - event.localEndPosition.y > xDragThreshold) {
       _dragCanceled = true;
+    } else if (_dragStartPosition!.y - event.localEndPosition.y > xDragThreshold) {
       print("drag up");
+      _dragCanceled = true;
     }
-  }
-
-  @override
-  void onDragEnd(DragEndEvent event) {
-    super.onDragEnd(event);
-    _dragCanceled = false;
   }
 }
