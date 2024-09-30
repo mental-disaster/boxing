@@ -1,18 +1,18 @@
-import 'package:boxing/src/config.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 import '../boxing.dart';
+import '../config.dart';
 
-class Player extends RectangleComponent
+class Enemy extends RectangleComponent
     with HasGameReference<Boxing> {
-  Player()
+  Enemy()
       : super(
     size: Vector2(playerWidth, playerHeight),
-    position: Vector2(0, gameHeight),
-    anchor: Anchor.bottomLeft,
+    position: Vector2(gameWidth, hudHeight),
+    anchor: Anchor.topRight,
     paint: Paint()
-      ..color = Colors.blue
+      ..color = Colors.red
       ..style = PaintingStyle.fill
   );
 }

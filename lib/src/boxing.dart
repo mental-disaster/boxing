@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:boxing/src/components/enemy.dart';
 import 'package:boxing/src/config.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -12,8 +13,8 @@ class Boxing extends FlameGame
   Boxing()
       : super(
       camera: CameraComponent.withFixedResolution(
-          width: gameWidth,
-          height: gameHeight
+        width: gameWidth,
+        height: gameHeight,
       ),
   );
 
@@ -29,6 +30,8 @@ class Boxing extends FlameGame
     world.add(Ring());
 
     world.add(HudArea());
+
+    world.add(Enemy());
 
     world.add(Player());
 
