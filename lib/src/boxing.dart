@@ -31,9 +31,17 @@ class Boxing extends FlameGame
 
     world.add(HudArea());
 
-    world.add(Enemy());
+    world.add(Enemy(
+      maxHp: 100,
+      maxStamina: 100,
+      maxGp: 100,
+    ));
 
-    world.add(Player());
+    world.add(Player(
+      maxHp: 100,
+      maxStamina: 100,
+      maxGp: 100,
+    ));
 
     debugMode = true;
   }
