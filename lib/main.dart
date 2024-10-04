@@ -16,8 +16,8 @@ void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   runApp(
-      const GameWidget.controlled(
-          gameFactory: Boxing.new
-      ),
+    const GameWidget.controlled(
+        gameFactory: Boxing.new
+    ),
   );
 }

@@ -7,7 +7,7 @@ enum MetricType {
   gp,
 }
 
-extension MetricColors on MetricType {
+extension MetricTypeElemets on MetricType {
   double get width {
     switch (this) {
       case MetricType.hp:

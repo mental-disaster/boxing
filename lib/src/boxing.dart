@@ -6,7 +6,10 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 
-import 'components/components.dart';
+import 'components/hud_area.dart';
+import 'components/player.dart';
+import 'components/ring.dart';
+import 'models/character_status.dart';
 
 class Boxing extends FlameGame
     with PanDetector {
@@ -21,6 +24,12 @@ class Boxing extends FlameGame
   double get width => size.x;
   double get height => size.y;
 
+  final CharacterStatus _playerStatus = CharacterStatus(100, 100, 100, 80, 80, 80);
+  CharacterStatus get playerStatus => _playerStatus;
+
+  final CharacterStatus _enemyStatus = CharacterStatus(100, 100, 100, 50, 50, 50);
+  CharacterStatus get enemyStatus => _enemyStatus;
+
   @override
   FutureOr<void> onLoad() async {
     super.onLoad();
@@ -31,17 +40,9 @@ class Boxing extends FlameGame
 
     world.add(HudArea());
 
-    world.add(Enemy(
-      maxHp: 100,
-      maxStamina: 100,
-      maxGp: 100,
-    ));
+    world.add(Enemy());
 
-    world.add(Player(
-      maxHp: 100,
-      maxStamina: 100,
-      maxGp: 100,
-    ));
+    world.add(Player());
 
     debugMode = true;
   }

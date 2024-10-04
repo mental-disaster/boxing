@@ -28,26 +28,29 @@ class HudArea extends RectangleComponent
     super.onLoad();
     size = Vector2(game.width, hudHeight);
 
+    game.playerStatus.addListener(_updatePlayerMetrics);
+    game.enemyStatus.addListener(_updateEnemyMetrics);
+
     // player metrics
     playerHpBar = CharacterMetric(
-      maxMetric: 100,
-      currentMetric: 80,
+      maxMetric: game.playerStatus.maxHp,
+      currentMetric: game.playerStatus.currentHp,
       metricType: MetricType.hp,
       anchor: Anchor.topLeft,
       position: Vector2(hudPadding, hudPadding),
       size: Vector2(MetricType.hp.width, MetricType.hp.height),
     );
     playerStaminaBar = CharacterMetric(
-      maxMetric: 100,
-      currentMetric: 80,
+      maxMetric: game.playerStatus.maxStamina,
+      currentMetric: game.playerStatus.currentStamina,
       metricType: MetricType.stamina,
       anchor: Anchor.topLeft,
       position: Vector2(hudPadding, MetricType.hp.height + hudPadding * 2),
       size: Vector2(MetricType.stamina.width, MetricType.stamina.height),
     );
     playerGpBar = CharacterMetric(
-      maxMetric: 100,
-      currentMetric: 80,
+      maxMetric: game.playerStatus.maxGp,
+      currentMetric: game.playerStatus.currentGp,
       metricType: MetricType.gp,
       anchor: Anchor.topLeft,
       position: Vector2(hudPadding, MetricType.hp.height + MetricType.stamina.height + hudPadding * 3),
@@ -56,24 +59,24 @@ class HudArea extends RectangleComponent
 
     // enemy metrics
     enemyHpBar = CharacterMetric(
-      maxMetric: 100,
-      currentMetric: 80,
+      maxMetric: game.enemyStatus.maxHp,
+      currentMetric: game.enemyStatus.currentHp,
       metricType: MetricType.hp,
       anchor: Anchor.topRight,
       position: Vector2(gameWidth - hudPadding, hudPadding),
       size: Vector2(MetricType.hp.width, MetricType.hp.height),
     );
     enemyStaminaBar = CharacterMetric(
-      maxMetric: 100,
-      currentMetric: 80,
+      maxMetric: game.enemyStatus.maxStamina,
+      currentMetric: game.enemyStatus.currentStamina,
       metricType: MetricType.stamina,
       anchor: Anchor.topRight,
       position: Vector2(gameWidth - hudPadding, MetricType.hp.height + hudPadding * 2),
       size: Vector2(MetricType.stamina.width, MetricType.stamina.height),
     );
     enemyGpBar = CharacterMetric(
-      maxMetric: 100,
-      currentMetric: 80,
+      maxMetric: game.enemyStatus.maxGp,
+      currentMetric: game.enemyStatus.currentGp,
       metricType: MetricType.gp,
       anchor: Anchor.topRight,
       position: Vector2(gameWidth - hudPadding, MetricType.hp.height + MetricType.stamina.height + hudPadding * 3),
@@ -86,5 +89,17 @@ class HudArea extends RectangleComponent
     add(enemyHpBar);
     add(enemyStaminaBar);
     add(enemyGpBar);
+  }
+
+  void _updatePlayerMetrics() {
+    playerHpBar.currentMetric = game.playerStatus.currentHp;
+    playerStaminaBar.currentMetric = game.playerStatus.currentStamina;
+    playerGpBar.currentMetric = game.playerStatus.currentGp;
+  }
+
+  void _updateEnemyMetrics() {
+    enemyHpBar.currentMetric = game.enemyStatus.currentHp;
+    enemyStaminaBar.currentMetric = game.enemyStatus.currentStamina;
+    enemyGpBar.currentMetric = game.enemyStatus.currentGp;
   }
 }

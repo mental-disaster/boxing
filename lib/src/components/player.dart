@@ -6,11 +6,7 @@ import '../boxing.dart';
 
 class Player extends RectangleComponent
     with HasGameReference<Boxing> {
-  Player({
-    required this.maxHp,
-    required this.maxStamina,
-    required this.maxGp,
-  }) : super(
+  Player() : super(
       size: Vector2(playerWidth, playerHeight),
       position: Vector2(0, gameHeight),
       anchor: Anchor.bottomLeft,
@@ -18,10 +14,4 @@ class Player extends RectangleComponent
         ..color = Colors.blue
         ..style = PaintingStyle.fill
   );
-
-  final int maxHp;
-  final int maxStamina;
-  final int maxGp;
-
-
 }
