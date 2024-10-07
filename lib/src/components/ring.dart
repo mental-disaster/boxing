@@ -35,11 +35,8 @@ class Ring extends RectangleComponent
   void onTapUp(TapUpEvent event) {
     if (!_isLongTap) {
       if (game.playerStatus.action == ActionType.block) {
-        game.playerStatus.doAction(ActionType.attack);
-        game.enemyStatus.takeDamage(10, 5, 1);
+        game.playerStatus.doAction(ActionType.jab, false);
       }
-      print('tap');
-      print('Jab');
     } else {
       print('long press');
       print('Straight');
@@ -52,7 +49,6 @@ class Ring extends RectangleComponent
     super.onDragStart(event);
     _dragCanceled = false;
     _dragStartPosition = event.localPosition;
-    print(_dragStartPosition);
   }
 
   @override
@@ -75,6 +71,15 @@ class Ring extends RectangleComponent
       print("drag up");
       print("Uppercut");
       _dragCanceled = true;
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (game.playerStatus.actionDuration > 0) {
+      game.playerStatus.timeSpend(dt);
     }
   }
 }

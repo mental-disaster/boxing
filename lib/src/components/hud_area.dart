@@ -13,7 +13,7 @@ class HudArea extends RectangleComponent
   HudArea()
       : super(
     anchor: Anchor.topLeft,
-    paint: Paint()..color = Colors.white60,
+    paint: Paint()..color = Colors.transparent,
   );
 
   late CharacterMetric playerHpBar;

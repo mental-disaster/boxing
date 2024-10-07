@@ -1,17 +1,14 @@
-import 'dart:ui';
-
 import 'package:boxing/src/models/enums/action_type.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 
-class CharacterStatus extends ChangeNotifier
-    with Game {
+class CharacterStatus extends ChangeNotifier {
   int _maxHp;
   int _maxStamina;
   int _maxGp;
   int _currentHp;
   int _currentStamina;
   int _currentGp;
+  double _actionDuration = 0;
   ActionType _action = ActionType.block;
 
   CharacterStatus(
@@ -29,6 +26,7 @@ class CharacterStatus extends ChangeNotifier
   int get currentHp => _currentHp;
   int get currentStamina => _currentStamina;
   int get currentGp => _currentGp;
+  double get actionDuration => _actionDuration;
   ActionType get action => _action;
 
   void takeDamage(int hpDamage, int staminaDamage, int blockDamage) {
@@ -38,17 +36,19 @@ class CharacterStatus extends ChangeNotifier
     notifyListeners();
   }
 
-  void doAction(ActionType action) {
+  void doAction(ActionType action, bool isCancel) {
     _action = action;
+    _actionDuration = action.duration;
+    print(DateTime.now());
+    print('action');
   }
 
-  @override
-  void render(Canvas canvas) {
-    // TODO: implement render
-  }
-
-  @override
-  void update(double dt) {
-    // TODO: implement update
+  void timeSpend(double dt) {
+    _actionDuration -= dt;
+    if (_actionDuration <= 0) {
+      _action = ActionType.block;
+      print(DateTime.now());
+      print('action finished');
+    }
   }
 }
