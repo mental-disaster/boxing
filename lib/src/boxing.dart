@@ -40,10 +40,12 @@ class Boxing extends FlameGame with PanDetector {
 
     player = Character(
       position: Vector2(0, gameHeight - characterHeight),
+      status: playerStatus
     );
 
     enemy = Character(
       position: Vector2(gameWidth - characterWidth, hudHeight),
+      status: enemyStatus
     );
 
     world.add(Ring());
