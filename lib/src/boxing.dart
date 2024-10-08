@@ -10,25 +10,26 @@ import 'components/hud_area.dart';
 import 'components/ring.dart';
 import 'models/character_status.dart';
 
-class Boxing extends FlameGame
-    with PanDetector {
+class Boxing extends FlameGame with PanDetector {
   Boxing()
       : super(
-    camera: CameraComponent.withFixedResolution(
-      width: gameWidth,
-      height: gameHeight,
-    ),
-  );
+          camera: CameraComponent.withFixedResolution(
+            width: gameWidth,
+            height: gameHeight,
+          ),
+        );
 
   double get width => size.x;
   double get height => size.y;
 
   late Character player;
-  final CharacterStatus _playerStatus = CharacterStatus(100, 100, 100, 80, 80, 80);
+  final CharacterStatus _playerStatus =
+      CharacterStatus(100, 100, 100, 80, 80, 80);
   CharacterStatus get playerStatus => _playerStatus;
 
   late Character enemy;
-  final CharacterStatus _enemyStatus = CharacterStatus(100, 100, 100, 50, 50, 50);
+  final CharacterStatus _enemyStatus =
+      CharacterStatus(100, 100, 100, 50, 50, 50);
   CharacterStatus get enemyStatus => _enemyStatus;
 
   @override
@@ -42,7 +43,7 @@ class Boxing extends FlameGame
     );
 
     enemy = Character(
-        position: Vector2(gameWidth - characterWidth, hudHeight),
+      position: Vector2(gameWidth - characterWidth, hudHeight),
     );
 
     world.add(Ring());

@@ -14,15 +14,16 @@ enum ActionType {
   hook,
   // 스테소모 높음, 체력뎀 높음, 스테뎀 낮음, 가드뎀 아주 낮음, 관통뎀 없음, 선딜 높음, 후딜 높음, 다른 공격 행동 중 어퍼 피격시 행동 취소
   uppercut,
+  hit,
 }
 
 extension ActionConfig on ActionType {
   double get duration {
     switch (this) {
       case ActionType.jab:
-        return 0.3;
-        default:
-          return 0.0;
+        return 3.0;
+      default:
+        return 0.0;
     }
   }
 }

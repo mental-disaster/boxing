@@ -11,9 +11,7 @@ class CharacterMetric extends RectangleComponent {
     required super.position,
     required super.size,
   })  : barColor = metricType.mainColor,
-        super(
-          anchor: anchor
-      );
+        super(anchor: anchor);
 
   final int maxMetric;
   final Color barColor;
@@ -38,8 +36,7 @@ class CharacterMetric extends RectangleComponent {
       size.y,
     );
 
-    final Paint metricPaint = Paint()
-      ..color = barColor;
+    final Paint metricPaint = Paint()..color = barColor;
 
     canvas.drawRect(metricRect, metricPaint);
   }

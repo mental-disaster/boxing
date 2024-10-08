@@ -16,6 +16,7 @@ extension MetricTypeElemets on MetricType {
         return hudWidth / 3;
     }
   }
+
   double get height {
     switch (this) {
       case MetricType.hp:

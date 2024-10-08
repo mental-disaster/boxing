@@ -8,13 +8,12 @@ import 'package:flutter/material.dart';
 
 import '../boxing.dart';
 
-class HudArea extends RectangleComponent
-    with HasGameReference<Boxing> {
+class HudArea extends RectangleComponent with HasGameReference<Boxing> {
   HudArea()
       : super(
-    anchor: Anchor.topLeft,
-    paint: Paint()..color = Colors.transparent,
-  );
+          anchor: Anchor.topLeft,
+          paint: Paint()..color = Colors.transparent,
+        );
 
   late CharacterMetric playerHpBar;
   late CharacterMetric playerStaminaBar;
@@ -53,7 +52,8 @@ class HudArea extends RectangleComponent
       currentMetric: game.playerStatus.currentGp,
       metricType: MetricType.gp,
       anchor: Anchor.topLeft,
-      position: Vector2(hudPadding, MetricType.hp.height + MetricType.stamina.height + hudPadding * 3),
+      position: Vector2(hudPadding,
+          MetricType.hp.height + MetricType.stamina.height + hudPadding * 3),
       size: Vector2(MetricType.gp.width, MetricType.gp.height),
     );
 
@@ -71,7 +71,8 @@ class HudArea extends RectangleComponent
       currentMetric: game.enemyStatus.currentStamina,
       metricType: MetricType.stamina,
       anchor: Anchor.topRight,
-      position: Vector2(gameWidth - hudPadding, MetricType.hp.height + hudPadding * 2),
+      position: Vector2(
+          gameWidth - hudPadding, MetricType.hp.height + hudPadding * 2),
       size: Vector2(MetricType.stamina.width, MetricType.stamina.height),
     );
     enemyGpBar = CharacterMetric(
@@ -79,7 +80,8 @@ class HudArea extends RectangleComponent
       currentMetric: game.enemyStatus.currentGp,
       metricType: MetricType.gp,
       anchor: Anchor.topRight,
-      position: Vector2(gameWidth - hudPadding, MetricType.hp.height + MetricType.stamina.height + hudPadding * 3),
+      position: Vector2(gameWidth - hudPadding,
+          MetricType.hp.height + MetricType.stamina.height + hudPadding * 3),
       size: Vector2(MetricType.gp.width, MetricType.gp.height),
     );
 

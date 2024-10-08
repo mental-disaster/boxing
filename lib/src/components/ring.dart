@@ -12,9 +12,9 @@ class Ring extends RectangleComponent
     with HasGameReference<Boxing>, DragCallbacks, TapCallbacks {
   Ring()
       : super(
-    anchor: Anchor.topLeft,
-    paint: Paint()..color = Colors.black,
-  );
+          anchor: Anchor.topLeft,
+          paint: Paint()..color = Colors.black,
+        );
 
   bool _isLongTap = false;
   bool _dragCanceled = false;
@@ -30,16 +30,13 @@ class Ring extends RectangleComponent
   void onLongTapDown(TapDownEvent event) {
     _isLongTap = true;
   }
-  
+
   @override
   void onTapUp(TapUpEvent event) {
     if (!_isLongTap) {
-      if (game.playerStatus.action == ActionType.block) {
-        game.playerStatus.doAction(ActionType.jab, false);
-      }
+      game.player.doAction(ActionType.jab);
     } else {
-      print('long press');
-      print('Straight');
+      game.player.doAction(ActionType.straight);
     }
     _isLongTap = false;
   }
@@ -56,30 +53,20 @@ class Ring extends RectangleComponent
     if (_dragCanceled) return;
 
     if (event.localEndPosition.x - _dragStartPosition!.x > xDragThreshold) {
-      print("drag right");
-      print("Hook");
+      game.player.doAction(ActionType.hook);
       _dragCanceled = true;
-    } else if (_dragStartPosition!.x - event.localEndPosition.x > xDragThreshold) {
-      print("drag left");
-      print("Weave");
+    } else if (_dragStartPosition!.x - event.localEndPosition.x >
+        xDragThreshold) {
+      game.player.doAction(ActionType.weave);
       _dragCanceled = true;
-    } else if (event.localEndPosition.y - _dragStartPosition!.y > xDragThreshold) {
-      print("drag down");
-      print("Duck");
+    } else if (event.localEndPosition.y - _dragStartPosition!.y >
+        xDragThreshold) {
+      game.player.doAction(ActionType.duck);
       _dragCanceled = true;
-    } else if (_dragStartPosition!.y - event.localEndPosition.y > xDragThreshold) {
-      print("drag up");
-      print("Uppercut");
+    } else if (_dragStartPosition!.y - event.localEndPosition.y >
+        xDragThreshold) {
+      game.player.doAction(ActionType.uppercut);
       _dragCanceled = true;
-    }
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    if (game.playerStatus.actionDuration > 0) {
-      game.playerStatus.timeSpend(dt);
     }
   }
 }
