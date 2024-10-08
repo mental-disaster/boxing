@@ -1,6 +1,13 @@
 import 'package:boxing/src/models/enums/action_type.dart';
 import 'package:flutter/foundation.dart';
 
+enum ActionPhase {
+  startup,
+  attack,
+  endLag,
+  idle,
+}
+
 class CharacterStatus extends ChangeNotifier {
   int _maxHp;
   int _maxStamina;
@@ -10,6 +17,7 @@ class CharacterStatus extends ChangeNotifier {
   int _currentGp;
   ActionType _action = ActionType.block;
   double _actionDuration = 0.0;
+  ActionPhase _actionPhase = ActionPhase.idle;
 
   CharacterStatus(
     this._maxHp,
@@ -27,6 +35,7 @@ class CharacterStatus extends ChangeNotifier {
   int get currentStamina => _currentStamina;
   int get currentGp => _currentGp;
   ActionType get action => _action;
+  ActionPhase get actionPhase => _actionPhase;
 
   void takeDamage(int hpDamage, int staminaDamage, int blockDamage) {
     _currentHp = (_currentHp - hpDamage).clamp(0, _maxHp);
@@ -35,15 +44,29 @@ class CharacterStatus extends ChangeNotifier {
     notifyListeners();
   }
 
-  void doAction(ActionType action, double duration) {
+  void doAction(ActionType action) {
     _action = action;
-    _actionDuration = duration;
+    _actionPhase = ActionPhase.startup;
+    _actionDuration = action.startupDelay;
   }
 
   void handleActionDuration(double dt) {
     _actionDuration -= dt;
     if (_actionDuration <= 0) {
-      _action = ActionType.block;
+      switch (_actionPhase) {
+        case ActionPhase.startup:
+          _actionPhase = ActionPhase.attack;
+          notifyListeners();
+          _actionPhase = ActionPhase.endLag;
+          break;
+        case ActionPhase.endLag:
+          _actionPhase = ActionPhase.idle;
+          _action = ActionType.block;
+          _actionDuration = 0.0;
+          break;
+        default:
+          break;
+      }
     }
   }
 }

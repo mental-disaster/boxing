@@ -16,41 +16,49 @@ class Character extends RectangleComponent with HasGameReference<Boxing> {
             position: position,
             paint: Paint()
               ..color = Colors.red
-              ..style = PaintingStyle.fill);
+              ..style = PaintingStyle.fill){
+    status.addListener(_onStatusChanged);
+  }
 
   final CharacterStatus status;
+
+  void _onStatusChanged() {
+    if (status.actionPhase == ActionPhase.attack) {
+      game.enemyStatus.takeDamage(10, 10, 10);
+    }
+  }
 
   void doAction(ActionType action) {
     switch (action) {
       case ActionType.jab:
         if (status.action == ActionType.block) {
-          status.doAction(ActionType.jab, ActionType.jab.duration);
+          status.doAction(ActionType.jab);
           print('jab');
         }
         break;
       case ActionType.straight:
         if (status.action == ActionType.block) {
-          status.doAction(ActionType.straight, ActionType.straight.duration);
+          status.doAction(ActionType.straight);
         }
         break;
       case ActionType.hook:
         if (status.action == ActionType.block) {
-          status.doAction(ActionType.hook, ActionType.hook.duration);
+          status.doAction(ActionType.hook);
         }
         break;
       case ActionType.uppercut:
         if (status.action == ActionType.block) {
-          status.doAction(ActionType.uppercut, ActionType.uppercut.duration);
+          status.doAction(ActionType.uppercut);
         }
         break;
       case ActionType.weave:
         if (status.action == ActionType.block) {
-          status.doAction(ActionType.weave, ActionType.weave.duration);
+          status.doAction(ActionType.weave);
         }
         break;
       case ActionType.duck:
         if (status.action == ActionType.block) {
-          status.doAction(ActionType.duck, ActionType.duck.duration);
+          status.doAction(ActionType.duck);
         }
         break;
       default:
@@ -74,5 +82,11 @@ class Character extends RectangleComponent with HasGameReference<Boxing> {
     super.update(dt);
 
     status.handleActionDuration(dt);
+  }
+
+  @override
+  void onRemove() {
+    status.removeListener(_onStatusChanged);
+    super.onRemove();
   }
 }

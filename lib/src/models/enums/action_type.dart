@@ -18,10 +18,19 @@ enum ActionType {
 }
 
 extension ActionConfig on ActionType {
-  double get duration {
+  double get startupDelay {
     switch (this) {
       case ActionType.jab:
-        return 3.0;
+        return 1.0;
+      default:
+        return 0.0;
+    }
+  }
+
+  double get endLag {
+    switch (this) {
+      case ActionType.jab:
+        return 1.0;
       default:
         return 0.0;
     }
